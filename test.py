@@ -4,7 +4,6 @@ import shutil
 import sys
 
 # 3rd Party Python Libraries
-import cv2
 from PIL import Image
 import numpy as np
 from oct2py import octave
@@ -20,7 +19,6 @@ TEST_IMAGE_PATH = os.path.abspath(os.path.join("./", "test", "test.png"))
 
 
 def test_spam_features():
-    np.set_printoptions(threshold=sys.maxsize)
     # Python Feature Extraction
     img = Image.open(TEST_IMAGE_PATH)
     img_arr = np.asarray(img, np.double)
@@ -29,4 +27,4 @@ def test_spam_features():
     # Octave/Matlab Feature Extraction
     octave_spam_features = octave.spam686(TEST_IMAGE_PATH).flatten()
 
-    assert np.array_equal(octave_spam_features, python_spam_features)
+    assert np.allclose(octave_spam_features, python_spam_features)
